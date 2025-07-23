@@ -26,36 +26,36 @@ A local RESTful API which is made by using Node.js, Express.js and SQLite3 that 
               
 ## 📌 Features
 
-✅ Create, view and play songs and playlists using API  
-✅ Local database using SQLite3  
-✅ Integrated with DB Browser for SQLite3  
-✅ HTML frontend (optional)  
-✅ Backend using Node.js and Express.js  
-✅ Fully local setup — no external APIs used  
+✅ Create, view and play songs and playlists using API  <br>
+✅ Local database using SQLite3  <br>
+✅ Integrated with DB Browser for SQLite3  <br>
+✅ HTML frontend (optional)  <br>
+✅ Backend using Node.js and Express.js  <br>
+✅ Fully local setup — no external APIs used  <br>
 
 ## 🚀 How to Run This Project
 
 1. 📥 Clone the Repository
-   `git clone https://github.com/your-username/music-tracker-api.git`
+   `git clone https://github.com/your-username/music-tracker-api.git` <br>
    `cd music-tracker-api`
 
 2. 📦 Install Dependencies
-   Node.js (v14 or above)  
-→ Required to run the backend server.  
-  npm (Node Package Manager)  
-  `npm install`  
-→ Comes with Node.js. Used to install project dependencies.  
+   Node.js (v14 or above)  <br>
+→ Required to run the backend server.  <br>
+  npm (Node Package Manager)  <br>
+  `npm install`  <br>
+→ Comes with Node.js. Used to install project dependencies.  <br>
 
-3. ✅ Start the Server  
-  Run this command :  
-   `node server.js`  
-   The server will start at: 
-   http://localhost:5000  
+3. ✅ Start the Server  <br>
+  Run this command :  <br>
+   `node server.js`  <br>
+   The server will start at: <br>
+   http://localhost:5000  <br>
 
 ## 🧠 API Endpoints
 
-GET /api/songs  
-Returns all songs in the database.  
+GET /api/songs  <br>
+Returns all songs in the database.  <br>
 Response:  
 ```json
 
@@ -67,8 +67,8 @@ Response:
   }
 ```
 
-POST /api/songs  
-Adds a new song to the database.  
+POST /api/songs  <br>
+Adds a new song to the database.  <br>
 Request Body:  
 ```json
 {
@@ -90,9 +90,9 @@ Response:
 
 ## 🗃️ Database Used
 
-📌 SQLite Database File: music.db  
-🎛️ Managed Using: DB Browser for SQLite  
-🛠️ Tables are auto-created on server start (via db.js)  
+📌 SQLite Database File: music.db  <br>
+🎛️ Managed Using: DB Browser for SQLite  <br>
+🛠️ Tables are auto-created on server start (via db.js)  <br>
 
 ## 🎼 Table Schema:
 
@@ -107,22 +107,22 @@ CREATE TABLE IF NOT EXISTS songs (
 
 ## 🌐 Frontend
 
-You can open the MusicAPI.html file directly in your browser:  
-🔗 Features:  
-   1.Add a song using a form  
-   2.View all songs in a list  
-To use:  
- 1.Make sure the server is running.  
- 2.Double-click MusicAPI.html to open it in your browser.  
- 3.Fill in the form and click “Add Song”.  
+You can open the MusicAPI.html file directly in your browser:  <br>
+🔗 Features:  <br>
+   1.Add a song using a form  <br>
+   2.View all songs in a list  <br>
+To use:  <br>
+ 1.Make sure the server is running.  <br>
+ 2.Double-click MusicAPI.html to open it in your browser.  <br>
+ 3.Fill in the form and click “Add Song”.  <br>
 
 ## 📬 Sample curl Requests
 
 Add a Song:  
 ```bash
 curl -X POST http://localhost:5000/api/songs \
-  -H "Content-Type: application/json" \
-  -d "{\"title\":\"Test Song\", \"artist\":\"Tester\", \"genre\":\"Rock\"}"
+  -H "Content-Type: application/json" \ 
+  -d "{\"title\":\"Test Song\", \"artist\":\"Tester\", \"genre\":\"Rock\"}" 
 
 
 Get All Songs:  
@@ -131,10 +131,10 @@ curl http://localhost:5000/api/songs
 
 ## 🛠 Built With
 
-1.Node.js  
-2.Express.js  
-3.SQLite3  
-4.[HTML/CSS/JS] for frontend  
+1.Node.js  <br>
+2.Express.js  <br>
+3.SQLite3  <br>
+4.[HTML/CSS/JS] for frontend  <br>
 
 ## 📄 License  
 
