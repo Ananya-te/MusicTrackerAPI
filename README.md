@@ -107,35 +107,43 @@ CREATE TABLE IF NOT EXISTS songs (
 
 ## 🌐 Frontend
 
-You can open the MusicAPI.html file directly in your browser:  <br>
-🔗 Features:  <br>
-   1.Add a song using a form  <br>
-   2.View all songs in a list  <br>
-To use:  <br>
- 1.Make sure the server is running.  <br>
- 2.Double-click MusicAPI.html to open it in your browser.  <br>
- 3.Fill in the form and click “Add Song”.  <br>
+You can easily run the frontend by opening the MusicAPI.html file in your browser. <br>
+🔧 Features: <br>
+🎵 Add a song using a simple form <br>
+📋 View all added songs in a list <br>
 
-## 📬 Sample curl Requests
+## 🚀 How to Use:
 
-Add a Song:  
+Make sure your server is running (node server.js) <br>
+Double-click on MusicAPI.html to open it in your browser <br>
+Fill out the form and hit “Add Song” to submit 🎶 <br>
+
+## Sample curl Requests
+* 🎵 Add a New Song
 ```bash
+Copy
+Edit
 curl -X POST http://localhost:5000/api/songs \
-  -H "Content-Type: application/json" \ 
-  -d "{\"title\":\"Test Song\", \"artist\":\"Tester\", \"genre\":\"Rock\"}" 
-
-
-Get All Songs:  
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Test Song",
+    "artist": "Tester",
+    "genre": "Rock"
+  }'
+```
+* Get All Songs:  
 ```bash
 curl http://localhost:5000/api/songs
+```
+## 🛠️ Built With  <br>
 
-## 🛠 Built With
+- 🟩 **Node.js** – For backend JavaScript runtime  <br>
+- 🚂 **Express.js** – Web framework to handle routes and APIs  <br>
+- 🗃 **SQLite3** – Lightweight database for storage  <br>
+- 🌐 **HTML/CSS/JavaScript** – To power the frontend UI  <br>
 
-1.Node.js  <br>
-2.Express.js  <br>
-3.SQLite3  <br>
-4.[HTML/CSS/JS] for frontend  <br>
+## 📄 License  <br>
 
-## 📄 License  
-
-This project is open-source and free to use. Feel free to fork and modify for learning or improvement!  
+This project is **open-source** and free to use!  <br>
+Feel free to **fork it**, **play around**, or even use it to build something cooler.  <br>
+Just don’t forget to give credit if you’re vibing with it 💫  
