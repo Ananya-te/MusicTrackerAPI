@@ -1,47 +1,62 @@
-🎵Music Tracker API
-A simple Node.js + SQLite3 project to manage a list of songs using RESTful APIs. Optionally includes a basic frontend to interact with the API.
+## 🎵Music Tracker API
 
-📁 Project Structure
-📦 Music Tracker API
-├── controllers/
-│   └── songController.js
-├── routes/
-│   └── songRoutes.js
-├── db.js
-├── music.db
-├── server.js
-├── MusicAPI.html (optional frontend)
-└── README.md
+A local RESTful API which is made by using Node.js, Express.js and SQLite3 that allows users to manage a list of songs and playlists. We can perform tasks like creating,viewing and playing a song, as well as creating, viewing and running a playlist. Optionally includes a basic frontend to interact with the API.
 
-📌 Features
-✅ Create, Read songs using API
-✅ Local database using SQLite
-✅ Integrated with DB Browser for SQLite
+## 📁 Project Structure
+
+📁 MusicTrackerAPI  
+├── _tests/  
+│   ├── api/  
+│   ├── integration/  
+│   └── unit/                  # All test files for different layers  
+├── controllers/  
+│   └── songController.js      # Handles song-related logic  
+├── routes/  
+│   └── songRoutes.js          # Defines API endpoints for songs/playlists  
+├── music.db                   # SQLite3 database file  
+├── db.js                      # Database connection setup  
+├── server.js                  # Entry point for the Express server  
+├── MusicAPI.html              # Optional HTML frontend  
+├── package.json               # Project dependencies and scripts  
+├── coverage/                  # Auto-generated test coverage reports  
+├── .github/workflows/         # GitHub CI/CD workflow config  
+├── appss.png, appss2.png      # Screenshots / image assets  
+└── README.md                  # Project documentation
+
+## 📌 Features
+
+✅ Create, view and play songs and playlists using API
+✅ Local database using SQLite3
+✅ Integrated with DB Browser for SQLite3
 ✅ HTML frontend (optional)
+✅ Backend using Node.js and Express.js
 ✅ Fully local setup — no external APIs used
 
-🚀 How to Run This Project
+## 🚀 How to Run This Project
+
 1. 📥 Clone the Repository
-   bash
-   git clone https://github.com/your-username/music-tracker-api.git
-   cd music-tracker-api
+   `git clone https://github.com/your-username/music-tracker-api.git`
+   `cd music-tracker-api`
 
 2. 📦 Install Dependencies
-   Make sure you have Node.js installed, then:
-   bash
-   npm install
+   Node.js (v14 or above)
+→ Required to run the backend server.
+  npm (Node Package Manager) 
+  `npm install`
+→ Comes with Node.js. Used to install project dependencies.
 
 3. ✅ Start the Server
-   bash
-   node server.js
+  Run this command :
+   `node server.js`
    The server will start at:
    http://localhost:5000
 
-🧠 API Endpoints
+## 🧠 API Endpoints
+
 GET /api/songs
 Returns all songs in the database.
 Response:
-json
+```json
 
   {
     "id": 1,
@@ -49,42 +64,48 @@ json
     "artist": "Tester",
     "genre": "Rock"
   }
-
+```
 
 POST /api/songs
 Adds a new song to the database.
 Request Body:
-json
+```json
 {
   "title": "Shape of You",
   "artist": "Ed Sheeran",
   "genre": "Pop"
 }
+```
 
 Response:
-json
+```json
 {
   "id": 2,
   "title": "Shape of You",
   "artist": "Ed Sheeran",
   "genre": "Pop"
 }
+```
 
-🗃️ Database Used
+## 🗃️ Database Used
+
 📌 SQLite Database File: music.db
 🎛️ Managed Using: DB Browser for SQLite
 🛠️ Tables are auto-created on server start (via db.js)
 
-🎼 Table Schema:
-sql
+## 🎼 Table Schema:
+
+```sql
 CREATE TABLE IF NOT EXISTS songs (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   title TEXT,
   artist TEXT,
   genre TEXT
 );
+```
 
-🌐 Frontend
+## 🌐 Frontend
+
 You can open the MusicAPI.html file directly in your browser:
 🔗 Features:
    1.Add a song using a form
@@ -94,32 +115,27 @@ To use:
  2.Double-click MusicAPI.html to open it in your browser.
  3.Fill in the form and click “Add Song”.
 
-📬 Sample curl Requests
-Add a Song:
-bash
+## 📬 Sample curl Requests
+
+* Add a Song:
+Do:
+```bash
 curl -X POST http://localhost:5000/api/songs \
   -H "Content-Type: application/json" \
   -d "{\"title\":\"Test Song\", \"artist\":\"Tester\", \"genre\":\"Rock\"}"
 
-Get All Songs:
-bash
+
+* Get All Songs:
+```bash
 curl http://localhost:5000/api/songs
 
-🛠 Built With
+## 🛠 Built With
+
 1.Node.js
 2.Express.js
 3.SQLite3
 4.[HTML/CSS/JS] for frontend
 
-📄 License
+## 📄 License
+
 This project is open-source and free to use. Feel free to fork and modify for learning or improvement!
-
-
-
-
-
-
-
-
-
-
