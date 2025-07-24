@@ -108,7 +108,7 @@
 
   <script>
     function loadSongs() {
-      fetch('http://localhost:5000/api/songs')
+      fetch('http://localhost:5000/api/songs') 
         .then(response => {
           if (!response.ok) throw new Error('Failed to fetch songs');
           return response.json();
