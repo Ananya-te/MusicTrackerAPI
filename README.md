@@ -1,125 +1,185 @@
-🎵Music Tracker API
-A simple Node.js + SQLite3 project to manage a list of songs using RESTful APIs. Optionally includes a basic frontend to interact with the API.
+# 🎵 MusicTrackerAPI
 
-📁 Project Structure
-📦 Music Tracker API
-├── controllers/
-│   └── songController.js
-├── routes/
-│   └── songRoutes.js
-├── db.js
-├── music.db
-├── server.js
-├── MusicAPI.html (optional frontend)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/00000000/your-banner-placeholder.png" alt="MusicTrackerAPI Banner" />
+</p>
+
+<p align="center">
+  <a href="https://github.com/Ananya-te/musictrackerAPI/stargazers"><img src="https://img.shields.io/github/stars/Ananya-te/musictrackerAPI?style=social" /></a>
+  <a href="https://github.com/Ananya-te/musictrackerAPI/issues"><img src="https://img.shields.io/github/issues/Ananya-te/musictrackerAPI" /></a>
+  <a href="https://github.com/Ananya-te/musictrackerAPI/pulls"><img src="https://img.shields.io/github/issues-pr/Ananya-te/musictrackerAPI" /></a>
+  <a href="https://github.com/Ananya-te/musictrackerAPI/network/members"><img src="https://img.shields.io/github/forks/Ananya-te/musictrackerAPI" /></a>
+</p>
+
+---
+
+## 📚 Table of Contents
+
+- [📖 Overview](#-overview)
+- [✨ Features](#-features)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [📦 Prerequisites](#-prerequisites)
+- [🚀 Installation](#-installation)
+- [🗂️ Project Structure](#️-project-structure)
+- [🤝 Contributing to GSSoC 2025](#-contributing-to-gssoc-2025)
+- [🌟 Contributors](#-contributors)
+- [🏅 Hall of Fame](#-hall-of-fame-)
+- [📘 GSSoC 2025 Guidelines](#-gssoc-2025-guidelines)
+- [📄 License](#-license)
+- [🙏 Acknowledgments](#-acknowledgments)
+- [💬 Join Our Community](#-join-our-community)
+
+---
+
+## 📖 Overview
+
+🎧 `MusicTrackerAPI` is an open-source API system built to help developers and users track and manage music habits, listening time, genres, and artist preferences.
+
+---
+
+## ✨ Features
+
+- 🎶 Track songs, artists, genres
+- 📊 Record and analyze listening habits
+- 🔁 Easy integration with front-end applications
+- 🧩 Modular architecture
+- ⚙️ RESTful API structure
+
+---
+
+## 🛠️ Tech Stack
+
+- **Backend:** Node.js, Express.js
+- **Database:** SQLite3
+
+---
+
+## 📦 Prerequisites
+
+- Node.js & npm installed
+- MongoDB (local or cloud)
+- Git
+
+---
+
+## 🚀 Installation
+
+```bash
+# Fork and clone the repository
+git clone https://github.com/YOUR-USERNAME/musictrackerAPI.git
+
+# Navigate into the project
+cd MusicTrackerAPI
+
+# Install dependencies
+npm install
+
+# Start the server
+npm start
+```
+
+## 🗂️ Project Structure
+Music Tracker API 
+├── controllers/ 
+│ └── songController.js 
+├── routes/ 
+│ └── songRoutes.js 
+├── db.js 
+├── music.db 
+├── server.js 
+├── MusicAPI.html (optional frontend) 
 └── README.md
 
-📌 Features
-✅ Create, Read songs using API
-✅ Local database using SQLite
-✅ Integrated with DB Browser for SQLite
-✅ HTML frontend (optional)
-✅ Fully local setup — no external APIs used
+## 🤝 Contributing to GSSoC 2025
+Welcome future contributors! 🎉
+This project is part of GirlScript Summer of Code 2025 (GSSoC 2025). We encourage all levels of developers to contribute and grow with us!
 
-🚀 How to Run This Project
-1. 📥 Clone the Repository
-   bash
-   git clone https://github.com/your-username/music-tracker-api.git
-   cd music-tracker-api
+## 🎯 Why Contribute?
+🚀 Learn and build real-world open source projects
 
-2. 📦 Install Dependencies
-   Make sure you have Node.js installed, then:
-   bash
-   npm install
+✨ Improve your skills and resume
 
-3. ✅ Start the Server
-   bash
-   node server.js
-   The server will start at:
-   http://localhost:5000
+🌍 Be a part of the open-source ecosystem
 
-🧠 API Endpoints
-GET /api/songs
-Returns all songs in the database.
-Response:
-json
+🏅 Earn GSSoC badges, swags & recognition
 
-  {
-    "id": 1,
-    "title": "Test Song",
-    "artist": "Tester",
-    "genre": "Rock"
-  }
+## 📌 Contribution Guidelines
 
+✅ Do's
+✅ Read documentation thoroughly before contributing
 
-POST /api/songs
-Adds a new song to the database.
-Request Body:
-json
-{
-  "title": "Shape of You",
-  "artist": "Ed Sheeran",
-  "genre": "Pop"
-}
+✅ Follow code style and project structure
 
-Response:
-json
-{
-  "id": 2,
-  "title": "Shape of You",
-  "artist": "Ed Sheeran",
-  "genre": "Pop"
-}
+✅ Write descriptive commit messages
 
-🗃️ Database Used
-📌 SQLite Database File: music.db
-🎛️ Managed Using: DB Browser for SQLite
-🛠️ Tables are auto-created on server start (via db.js)
+✅ Test your changes before submitting PR
 
-🎼 Table Schema:
-sql
-CREATE TABLE IF NOT EXISTS songs (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  title TEXT,
-  artist TEXT,
-  genre TEXT
-);
+✅ Be respectful and collaborative
 
-🌐 Frontend
-You can open the MusicAPI.html file directly in your browser:
-🔗 Features:
-   1.Add a song using a form
-   2.View all songs in a list
-To use:
- 1.Make sure the server is running.
- 2.Double-click MusicAPI.html to open it in your browser.
- 3.Fill in the form and click “Add Song”.
+✅ Ask questions if you're unsure
 
-📬 Sample curl Requests
-Add a Song:
-bash
-curl -X POST http://localhost:5000/api/songs \
-  -H "Content-Type: application/json" \
-  -d "{\"title\":\"Test Song\", \"artist\":\"Tester\", \"genre\":\"Rock\"}"
+❌ Don'ts
+❌ Don’t spam with multiple PRs for same issue
 
-Get All Songs:
-bash
-curl http://localhost:5000/api/songs
+❌ Don’t copy code without understanding
 
-🛠 Built With
-1.Node.js
-2.Express.js
-3.SQLite3
-4.[HTML/CSS/JS] for frontend
+❌ Don’t make unnecessary changes
 
-📄 License
-This project is open-source and free to use. Feel free to fork and modify for learning or improvement!
+❌ Don’t ignore code review feedback
 
+❌ Don’t forget to update documentation
 
+## 🎯 Contribution Levels
+| Level           | Description                               | Points | Badge                                                                 |
+| --------------- | ----------------------------------------- | ------ | --------------------------------------------------------------------- |
+| 🥉 Beginner     | Fix typos, update docs, minor bug fixes   | 5–10   | ![Beginner](https://img.shields.io/badge/Level-Beginner-green)        |
+| 🥈 Intermediate | Add features, improve UI/UX, performance  | 15–25  | ![Intermediate](https://img.shields.io/badge/Level-Intermediate-blue) |
+| 🥇 Advanced     | Major features, architecture improvements | 30–50  | ![Advanced](https://img.shields.io/badge/Level-Advanced-red)          |
 
+## 🌟 Contributors
+<a href="https://github.com/Ananya-te/musictrackerAPI/graphs/contributors"> <img src="https://contrib.rocks/image?repo=Ananya-te/musictrackerAPI" /> </a>
 
+## 🏅 Hall of Fame 🌟
+We're grateful to all our amazing contributors who have helped make this project better!
 
+</div>
 
+| Avatar | Name | Role | Contributions |
+|--------|------|------|---------------|
+| <img src="![alt text](image.png)" width="50" height="50" style="border-radius: 50%;"> | **Ananya-te** | 👑 **Project Creator** | Initial project setup, Core development |
+| 🎯 |**Your Name Here**|  🌱**New Contributor** | *Contribute and see your name here!* |
+| 🎯 | **Your Name Here** | 🌱 **New Contributor** | *Contribute and see your name here!* |
 
+## 📘 GSSoC 2025 Guidelines
+## 📋 For Participants
+✅ Do's
+Read instructions carefully
 
+Pick an issue and comment before PR
 
+Write clear and concise commit messages
 
+Respect deadlines and feedback
+
+❌ Don'ts
+Don’t push irrelevant or copied PRs
+
+Don’t submit work without testing
+
+Don’t neglect repo standards
+
+## 📄 License
+This project is licensed under the MIT License.
+
+## 🙏 Acknowledgments
+Special thanks to all contributors and maintainers.
+
+Huge gratitude to GirlScript Foundation for organizing GSSoC.
+
+Original project author: Ananya-te
+
+## 💬 Join Our Community
+[![Discord](https://img.shields.io/badge/Join_Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)](#)
+[![Telegram](https://img.shields.io/badge/Join_Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](#)
+
+Made with ❤️ by Ananya-te and the open-source community.
