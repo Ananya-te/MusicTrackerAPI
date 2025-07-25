@@ -37,6 +37,7 @@
       border: 1px solid #ccc;
       border-radius: 8px;
       font-size: 16px;
+      box-sizing: border-box;
     }
 
     button {
@@ -108,24 +109,30 @@
 
   <script>
     function loadSongs() {
-      fetch('http://localhost:5000/api/songs/songs')
+      fetch('http://localhost:5000/api/songs')
         .then(response => {
           if (!response.ok) throw new Error('Failed to fetch songs');
           return response.json();
         })
-        .then(data => {
+        .then(result => {
           const songList = document.getElementById('songList');
           songList.innerHTML = '';
 
-          data.forEach(song => {
-            const li = document.createElement('li');
-            li.textContent = `${song.title} by ${song.artist} (${song.genre})`;
-            songList.appendChild(li);
-          });
+          // Check if the response has the expected structure
+          if (result.success && result.data && Array.isArray(result.data)) {
+            result.data.forEach(song => {
+              const li = document.createElement('li');
+              li.textContent = `${song.title} by ${song.artist} (${song.genre})`;
+              songList.appendChild(li);
+            });
+          } else {
+            console.log('No songs found or unexpected response format:', result);
+            showMessage('No songs found', 'error');
+          }
         })
         .catch(err => {
           console.error('Error fetching songs:', err);
-          showMessage('Failed to fetch songs.', 'error');
+          showMessage('Failed to fetch songs', 'error');
         });
     }
 
@@ -143,7 +150,7 @@
       const artist = document.getElementById('artist').value;
       const genre = document.getElementById('genre').value;
 
-      fetch('http://localhost:5000/api/songs/songs', {
+      fetch('http://localhost:5000/api/songs', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title, artist, genre })
@@ -152,10 +159,14 @@
         if (!response.ok) throw new Error('Failed to add song');
         return response.json();
       })
-      .then(data => {
-        showMessage('✅ Song added successfully!', 'success');
-        loadSongs();
-        document.getElementById('songForm').reset();
+      .then(result => {
+        if (result.success) {
+          showMessage('✅ Song added successfully!', 'success');
+          loadSongs();
+          document.getElementById('songForm').reset();
+        } else {
+          throw new Error(result.error || 'Failed to add song');
+        }
       })
       .catch(error => {
         console.error('Error adding song:', error);
