@@ -29,8 +29,8 @@ MusicTrackerAPI/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com//music-tracker-api.git
-cd music-tracker-api
+ git clone https://github.com/Ananya-te/MusicTrackerAPI.git
+ cd MusicTrackerAPI
 ```
 
 ###2. Install Dependencies
