@@ -1,33 +1,34 @@
 const express = require('express');
 const router = express.Router();
+const {
+  getAllSongs,
+  getSongById,
+  createSong,
+  updateSong,
+  deleteSong,
+  searchSongs,
+  getSongStats
+} = require('../controllers/songController');
 
-const songs = [];
+// GET /api/songs - Get all songs with optional filtering
+router.get('/', getAllSongs);
 
-router.get('/', (req, res) => {
-  res.json(songs);
-});
+// GET /api/songs/stats - Get song statistics
+router.get('/stats', getSongStats);
 
-router.post('/', (req, res) => {
-  // Log the raw body for debugging
-  console.log('Raw Request Body:', req.rawBody);
+// GET /api/songs/search - Search songs
+router.get('/search', searchSongs);
 
-  if (typeof req.body !== 'object' || req.body === null || Array.isArray(req.body)) {
-    return res.status(400).json({ error: 'Invalid JSON object. Expected { title, artist }' });
-  }
+// GET /api/songs/:id - Get song by ID
+router.get('/:id', getSongById);
 
-  const { title, artist } = req.body;
+// POST /api/songs - Create new song
+router.post('/', createSong);
 
-  if (!title || !artist) {
-    return res.status(400).json({ error: 'Missing title or artist' });
-  }
+// PUT /api/songs/:id - Update song
+router.put('/:id', updateSong);
 
-  const newSong = {
-    title: title.trim(),
-    artist: artist.trim()
-  };
-
-  songs.push(newSong);
-  res.status(201).json(newSong);
-});
+// DELETE /api/songs/:id - Delete song
+router.delete('/:id', deleteSong);
 
 module.exports = router;
