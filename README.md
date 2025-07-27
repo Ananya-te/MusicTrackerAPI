@@ -227,8 +227,8 @@ This project is open-source and free to use under the [MIT License](LICENSE).
 
 ## 👤 Author
 
-**Maintainer:** Salusha  
-GitHub: [Salusha](https://github.com/Salusha)
+**Owner:** Ananya  
+GitHub: [Ananya-te](https://github.com/Ananya-te)
 1. 📥 Clone the Repository
    bash
    git clone https://github.com/your-username/music-tracker-api.git
