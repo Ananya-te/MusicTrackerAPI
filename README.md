@@ -12,9 +12,9 @@
 </p>
 
 <!-- <p align="center">
-  <a href="#"><img src="https://img.shields.io/github/stars/Salusha/MusicTrackerAPI?style=social" alt="GitHub stars"></a>
-  <a href="#"><img src="https://img.shields.io/github/license/Salusha/MusicTrackerAPI" alt="License"></a>
-  <a href="#"><img src="https://img.shields.io/github/last-commit/Salusha/MusicTrackerAPI" alt="Last Commit"></a>
+  <a href="#"><img src="https://img.shields.io/github/stars/Ananya-te/MusicTrackerAPI?style=social" alt="GitHub stars"></a>
+  <a href="#"><img src="https://img.shields.io/github/license/Ananya-te/MusicTrackerAPI" alt="License"></a>
+  <a href="#"><img src="https://img.shields.io/github/last-commit/Ananya-te/MusicTrackerAPI" alt="Last Commit"></a>
 </p> -->
 
 ---
