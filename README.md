@@ -231,7 +231,7 @@ This project is open-source and free to use under the [MIT License](LICENSE).
 GitHub: [Ananya-te](https://github.com/Ananya-te)
 1. 📥 Clone the Repository
    bash
-   git clone https://github.com/your-username/music-tracker-api.git
+   git clone https://github.com/Ananya-te/MusicTrackerAPI.git
    cd music-tracker-api
 
 2. 📦 Install Dependencies
