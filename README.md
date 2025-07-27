@@ -11,11 +11,11 @@
   <b>A simple, beginner-friendly Node.js + SQLite3 RESTful API to manage your music collection. Includes an optional HTML frontend for easy interaction.</b>
 </p>
 
-<p align="center">
+<!-- <p align="center">
   <a href="#"><img src="https://img.shields.io/github/stars/Salusha/MusicTrackerAPI?style=social" alt="GitHub stars"></a>
   <a href="#"><img src="https://img.shields.io/github/license/Salusha/MusicTrackerAPI" alt="License"></a>
   <a href="#"><img src="https://img.shields.io/github/last-commit/Salusha/MusicTrackerAPI" alt="Last Commit"></a>
-</p>
+</p> -->
 
 ---
 
