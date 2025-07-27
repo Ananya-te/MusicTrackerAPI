@@ -9,5 +9,12 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "express-session": "^1.18.2",
+    "passport": "^0.7.0",
+    "passport-spotify": "^2.0.0",
+    "spotify-web-api-node": "^5.0.2"
+  }
 }
