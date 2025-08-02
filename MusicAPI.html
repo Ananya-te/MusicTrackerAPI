@@ -108,7 +108,7 @@
 
   <script>
     function loadSongs() {
-      fetch('http://localhost:5000/api/songs/songs')
+      fetch('http://localhost:5000/api/songs') 
         .then(response => {
           if (!response.ok) throw new Error('Failed to fetch songs');
           return response.json();
@@ -143,7 +143,7 @@
       const artist = document.getElementById('artist').value;
       const genre = document.getElementById('genre').value;
 
-      fetch('http://localhost:5000/api/songs/songs', {
+      fetch('http://localhost:5000/api/songs', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title, artist, genre })
