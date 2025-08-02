@@ -1,13 +1,37 @@
 {
   "name": "music-tracker-api",
   "version": "1.0.0",
-  "main": "db.js",
+  "description": "A RESTful API for tracking music and managing playlists",
+  "main": "src/server.js",
   "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
     "test": "jest --coverage",
-    "start": "node server.js"
+    "test:watch": "jest --watch",
+    "test:unit": "jest tests/unit --coverage",
+    "test:integration": "jest tests/integration",
+    "lint": "eslint src/ tests/",
+    "lint:fix": "eslint src/ tests/ --fix"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "keywords": ["music", "api", "nodejs", "express", "sqlite"],
+  "author": "Shikhir",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.0",
+    "cors": "^2.8.5",
+    "sqlite3": "^5.1.6",
+    "joi": "^17.9.0",
+    "dotenv": "^16.0.0",
+    "helmet": "^6.0.0",
+    "express-rate-limit": "^6.7.0"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "nodemon": "^2.0.20",
+    "supertest": "^6.3.0",
+    "eslint": "^8.40.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
 }
