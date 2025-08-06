@@ -1,0 +1,837 @@
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎵Music Tracker</title>
+  <style>
+     body {
+      font-family: 'Segoe UI', sans-serif;
+      padding: 30px;
+      background-color: #121212;
+      color: white;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    form, .form-section, .auth-section {
+      background: #1e1e1e;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    input, select {
+      background-color: #2c2c2c;
+      color: white;
+    }
+
+    button {
+      background-color: #1db954;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #1ed760;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 20px;
+      margin-top: 30px;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      padding: 10px;
+    }
+
+    .card {
+      background-color: #2c2c2c;
+      border-radius: 12px;
+      padding: 15px;
+      width: 200px;
+      text-align: center;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      background-color: #333;
+    }
+
+    .card-title {
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #1db954;
+    }
+
+    .clickable {
+      cursor: pointer;
+      color: #1db954;
+      font-weight: bold;
+    }
+
+    .clickable:hover {
+      text-decoration: underline;
+    }
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn ease 1s forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .clickable {
+      cursor: pointer;
+      color: #9ee6f8;
+      font-weight: bold;
+    }
+
+    .clickable:hover {
+      text-decoration: underline;
+    }
+
+    .toggle-link {
+      text-align: center;
+      color: #9ee6f8;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .toggle-link:hover {
+      text-decoration: underline;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎵 Music Tracker</h1>
+
+  //Auth Section
+  <div id="authSection">
+    //Register Form
+    <form id="registerForm">
+      <h3>Register</h3>
+      <label>Name</label>
+      <input type="text" name="name" required>
+      <label>Email</label>
+      <input type="email" name="email" required>
+      <label>Password</label>
+      <input type="password" name="password" required>
+      <label>Favorite Genre</label>
+      <input type="text" name="genre" required>
+      <button type="submit">Register</button>
+      <p class="toggle-link" onclick="showLogin()">Already have an account? Login</p>
+    </form>
+
+    //Login Form
+    <form id="loginForm" style="display:none;">
+      <h3>Login</h3>
+      <label>Email</label>
+      <input type="email" name="email" required>
+      <label>Password</label>
+      <input type="password" name="password" required>
+      <button type="submit">Login</button>
+      <p class="toggle-link" onclick="showRegister()">New user? Register here</p>
+    </form>
+  </div>
+
+//Main App Content (Hidden by default)
+  <div id="mainContent" style="display:none;">
+    // Add Song Form
+    <form id="songForm">
+      <h3>Add Song</h3>
+      <label>Title</label>
+      <input type="text" name="title" required />
+      <label>Artist</label>
+      <input type="text" name="artist" required />
+      <label>Genre</label>
+      <input type="text" name="genre" required />
+      <button type="submit">Add Song</button>
+    </form>
+
+    //Add Playlist Form
+    <form id="playlistForm">
+      <h3>Create Playlist</h3>
+      <label>Playlist Name</label>
+      <input type="text" name="name" required />
+      <button type="submit">Create Playlist</button>
+    </form>
+
+
+    <form id="assignForm">
+      <h3>Assign Song to Playlist</h3>
+      <label>Select Playlist</label>
+      <select id="playlistSelect" required>
+        <option value=""> Select Playlist </option>
+      </select>
+      <label>Select Song</label>
+      <select id="songSelect" required>
+        <option value=""> Select Song </option>
+      </select>
+      <button type="submit">Add Song to Playlist</button>
+    </form>
+
+   // Display Playlists
+    <div class="form-section">
+      <h3 class="section-title">Your Playlists</h3>
+      <ul id="playlistList" class="card-container"></ul>
+    </div>
+
+    //Display Songs in Playlist
+    <div class="form-section">
+      <h3 class="section-title">Songs in Playlist</h3>
+      <ul id="playlistSongs" class="card-container"></ul>
+    </div>
+  </div>
+
+  <script>
+    const api = '/api';
+
+    // Toggle forms
+    function showLogin() {
+      document.getElementById('registerForm').style.display = 'none';
+      document.getElementById('loginForm').style.display = 'block';
+    }
+
+    function showRegister() {
+      document.getElementById('registerForm').style.display = 'block';
+      document.getElementById('loginForm').style.display = 'none';
+    }
+
+    // Register
+    document.getElementById('registerForm').onsubmit = async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const res = await fetch(`${api}/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name.value,
+          email: form.email.value,
+          password: form.password.value,
+          genre: form.genre.value
+        })
+      });
+
+      if (res.ok) {
+        alert("Registered successfully!");
+        showLogin();
+      } else {
+        alert("Registration failed.");
+      }
+    };
+
+    // Login
+    document.getElementById('loginForm').onsubmit = async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const res = await fetch(`${api}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: form.email.value,
+          password: form.password.value
+        })
+      });
+
+      if (res.ok) {
+        document.getElementById('authSection').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+        loadData();
+      } else {
+        alert("Invalid credentials!");
+      }
+    };
+
+    // Load Data
+    async function loadData() {
+      const songs = await fetch(`${api}/songs`).then(res => res.json());
+      const playlists = await fetch(`${api}/playlists`).then(res => res.json());
+
+      const songSelect = document.getElementById('songSelect');
+      songSelect.innerHTML = '<option value="">-- Select Song --</option>';
+      songs.forEach(s =>
+        songSelect.innerHTML += `<option value="${s.id}">${s.title} - ${s.artist}</option>`
+      );
+
+      const playlistSelect = document.getElementById('playlistSelect');
+      playlistSelect.innerHTML = '<option value="">-- Select Playlist --</option>';
+      playlists.forEach(p =>
+        playlistSelect.innerHTML += `<option value="${p.id}">${p.name}</option>`
+      );
+
+      const list = document.getElementById('playlistList');
+      list.innerHTML = '';
+      playlists.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="card-title clickable" onclick="showSongs(${p.id})">${p.name}</div>
+          <div>Playlist ID: ${p.id}</div>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    async function showSongs(playlistId) {
+      const songs = await fetch(`${api}/playlists/${playlistId}/songs`).then(res => res.json());
+      const container = document.getElementById('playlistSongs');
+      container.innerHTML = '';
+      songs.forEach(song => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="card-title">${song.title}</div>
+          <div>Artist: ${song.artist}</div>
+          <div>Genre: ${song.genre}</div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    document.getElementById('songForm').onsubmit = async e => {
+      e.preventDefault();
+      const form = e.target;
+      await fetch(`${api}/songs`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          title: form.title.value,
+          artist: form.artist.value,
+          genre: form.genre.value
+        })
+      });
+      form.reset();
+      loadData();
+    };
+
+    document.getElementById('playlistForm').onsubmit = async e => {
+      e.preventDefault();
+      const form = e.target;
+      await fetch(`${api}/playlists`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ name: form.name.value })
+      });
+      form.reset();
+      loadData();
+    };
+
+    document.getElementById('assignForm').onsubmit = async e => {
+      e.preventDefault();
+      const playlistId = document.getElementById('playlistSelect').value;
+      const songId = document.getElementById('songSelect').value;
+      await fetch(`${api}/playlists/add-song`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ playlist_id: playlistId, song_id: songId })
+      });
+      showSongs(playlistId);
+    };
+
+  </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎵 Music Tracker</title>
+    <style>
+    :root {
+      --bg-dark: #121212;
+      --bg-light: #f5f5f5;
+      --text-light: #ffffff;
+      --text-dark: #000000;
+      --primary: #1db954;
+      --hover: #1ed760;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      transition: background-color 0.3s, color 0.3s ease;
+    }
+
+    .navbar {
+      background-color: var(--primary);
+      padding: 15px 20px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .navbar h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .navbar-buttons {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .navbar button {
+      background-color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #333;
+      transition: background-color 0.3s ease;
+    }
+
+    .navbar button:hover {
+      background-color: #ddd;
+    }
+
+    .container {
+      padding: 30px;
+    }
+
+    form, .form-section, .auth-section {
+      background: #1e1e1e;
+      color: #ffffff;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      border: none;
+    }
+
+    input, select {
+      background-color: #2c2c2c;
+      color: white;
+    }
+
+    button[type="submit"], button {
+      background-color: var(--primary);
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: var(--hover);
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background: #2c2c2c;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-left: 4px solid var(--primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn ease 1s forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .card {
+      width: 200px;
+      background: #1e1e1e;
+      color: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      margin: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card-title {
+      font-weight: bold;
+      margin-top: 10px;
+      color: var(--primary);
+    }
+
+    .toggle-link {
+      text-align: center;
+      color: #9ee6f8;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .toggle-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .navbar-buttons {
+        flex-direction: column;
+        width: 100%;
+        gap: 5px;
+        margin-top: 10px;
+      }
+      .navbar button {
+        width: 100%;
+      }
+      .container {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <h2>🎵 Tracker</h2>
+    <div class="navbar-buttons" id="navButtons" style="display: none;">
+    <button onclick="toggleTheme()">Toggle Dark/Light</button>
+    <button onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>🎵 Music Tracker</h1>
+
+    <div id="authSection" class="auth-section">
+      <form id="registerForm">
+        <h3>Register</h3>
+        <label>Name</label>
+        <input type="text" name="name" required>
+        <label>Email</label>
+        <input type="email" name="email" required>
+        <label>Password</label>
+        <input type="password" name="password" required>
+        <label>Favorite Genre</label>
+        <input type="text" name="genre" required>
+        <button type="submit">Register</button>
+        <p class="toggle-link" onclick="showLogin()">Already have an account? Login</p>
+      </form>
+
+      <form id="loginForm" style="display:none">
+        <h3>Login</h3>
+        <label>Email</label>
+        <input type="email" name="email" required>
+        <label>Password</label>
+        <input type="password" name="password" required>
+        <button type="submit">Login</button>
+        <p class="toggle-link" onclick="showRegister()">New user? Register here</p>
+      </form>
+    </div>
+
+    <div id="mainContent" style="display:none">
+      <form id="songForm">
+        <h3>Add Song</h3>
+        <label>Title</label>
+        <input type="text" name="title" required>
+        <label>Artist</label>
+        <input type="text" name="artist" required>
+        <label>Genre</label>
+        <input type="text" name="genre" required>
+        <label>Album Art URL</label>
+        <input type="url" name="album" required>
+        <button type="submit">Add Song</button>
+      </form>
+
+      <form id="playlistForm">
+        <h3>Create Playlist</h3>
+        <label>Playlist Name</label>
+        <input type="text" name="name" required>
+        <button type="submit">Create Playlist</button>
+      </form>
+
+      <form id="assignForm">
+        <h3>Assign Song to Playlist</h3>
+        <label>Select Playlist</label>
+        <select id="playlistSelect" required></select>
+        <label>Select Song</label>
+        <select id="songSelect" required></select>
+        <button type="submit">Assign</button>
+      </form>
+
+      <div class="form-section">
+        <h3>Your Playlists</h3>
+        <div id="playlistList" class="card-container"></div>
+      </div>
+
+      <div class="form-section">
+        <h3>Songs in Playlist</h3>
+        <div id="playlistSongs" class="card-container"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const api = '/api';
+    let currentTheme = 'dark';
+
+    function toggleTheme() {
+      currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.body.style.backgroundColor = currentTheme === 'dark' ? '#121212' : '#f5f5f5';
+      document.body.style.color = currentTheme === 'dark' ? 'white' : 'black';
+    }
+
+    function logout() {
+      document.getElementById('mainContent').style.display = 'none';
+      document.getElementById('authSection').style.display = 'block';
+      document.getElementById('navButtons').style.display = 'none';
+    }
+
+
+    function showLogin() {
+      document.getElementById('registerForm').style.display = 'none';
+      document.getElementById('loginForm').style.display = 'block';
+    }
+
+    function showRegister() {
+      document.getElementById('registerForm').style.display = 'block';
+      document.getElementById('loginForm').style.display = 'none';
+    }
+
+    document.getElementById('registerForm').onsubmit = async e => {
+      e.preventDefault();
+      const form = e.target;
+      const res = await fetch(`${api}/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name.value,
+          email: form.email.value,
+          password: form.password.value,
+          genre: form.genre.value
+        })
+      });
+      if (res.ok) showLogin();
+    };
+
+    document.getElementById('loginForm').onsubmit = async e => {
+      e.preventDefault();
+      const form = e.target;
+      const res = await fetch(`${api}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: form.email.value,
+          password: form.password.value
+        })
+      });
+      if (res.ok) {
+        document.getElementById('authSection').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+        document.getElementById('navButtons').style.display = 'flex';
+        loadData();
+      }
+
+    };
+
+    async function loadData() {
+      const songs = await fetch(`${api}/songs`).then(res => res.json());
+      const playlists = await fetch(`${api}/playlists`).then(res => res.json());
+
+      const songSelect = document.getElementById('songSelect');
+      songSelect.innerHTML = '<option value="">Select Song</option>';
+      songs.forEach(s => {
+        songSelect.innerHTML += `<option value="${s.id}">${s.title}</option>`;
+      });
+
+      const playlistSelect = document.getElementById('playlistSelect');
+      playlistSelect.innerHTML = '<option value="">Select Playlist</option>';
+      playlists.forEach(p => {
+        playlistSelect.innerHTML += `<option value="${p.id}">${p.name}</option>`;
+      });
+
+      const playlistList = document.getElementById('playlistList');
+      playlistList.innerHTML = '';
+      playlists.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `<div class='card-title' onclick='showSongs(${p.id})'>${p.name}</div>`;
+        playlistList.appendChild(card);
+      });
+    }
+
+    async function showSongs(playlistId) {
+      const songs = await fetch(`${api}/playlists/${playlistId}/songs`).then(res => res.json());
+      const container = document.getElementById('playlistSongs');
+      container.innerHTML = '';
+      songs.forEach(song => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          
+          <div class="card-title">${song.title}</div>
+          <div>Artist: ${song.artist}</div>
+          <div>Genre: ${song.genre}</div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    document.getElementById('songForm').onsubmit = async e => {
+      e.preventDefault();
+      const form = e.target;
+      await fetch(`${api}/songs`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: form.title.value,
+          artist: form.artist.value,
+          genre: form.genre.value,
+          album: form.album.value
+        })
+      });
+      form.reset();
+      loadData();
+    };
+
+    document.getElementById('playlistForm').onsubmit = async e => {
+      e.preventDefault();
+      const form = e.target;
+      await fetch(`${api}/playlists`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: form.name.value })
+      });
+      form.reset();
+      loadData();
+    };
+
+    document.getElementById('assignForm').onsubmit = async e => {
+      e.preventDefault();
+      const playlistId = document.getElementById('playlistSelect').value;
+      const songId = document.getElementById('songSelect').value;
+      await fetch(`${api}/playlists/add-song`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ playlist_id: playlistId, song_id: songId })
+      });
+      showSongs(playlistId);
+    };
+
+    document.getElementById('authSection').style.display = 'block';
+  </script>
+</body>
+</html>
